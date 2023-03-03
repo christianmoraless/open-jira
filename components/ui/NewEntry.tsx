@@ -1,7 +1,7 @@
 // React
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 // Context
-import { EntriesContext } from "../../context/entries";
+import { EntriesContext, UIContext } from "@/context";
 // MUI
 import { Box, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
@@ -10,7 +10,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 
 export const NewEntry = () => {
   const { addNewEntry } = useContext(EntriesContext);
-  const [isAdding, setIsAdding] = useState(false);
+  const { isAddingEntry, setIsAddingEntry } = useContext(UIContext);
   const [inputValue, setInputValue] = useState("");
   const [touched, setTouched] = useState(false);
   const onTextFieldChanged = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,11 +20,15 @@ export const NewEntry = () => {
   const onSave = () => {
     if (inputValue.length === 0) return;
     addNewEntry(inputValue);
+    setInputValue("");
+    setIsAddingEntry(false);
+    setTouched(false);
   };
+
   return (
     <>
       <Box marginBottom={2}>
-        {isAdding ? (
+        {isAddingEntry ? (
           <>
             <TextField
               fullWidth
@@ -39,7 +43,7 @@ export const NewEntry = () => {
               onBlur={() => setTouched(true)}
             />
             <Box display="flex" justifyContent="space-between">
-              <Button variant="text" onClick={() => setIsAdding(false)}>
+              <Button variant="text" onClick={() => setIsAddingEntry(false)}>
                 Cancel
               </Button>
               <Button
@@ -56,7 +60,7 @@ export const NewEntry = () => {
             startIcon={<AddCircleOutlineOutlinedIcon />}
             fullWidth
             variant="outlined"
-            onClick={() => setIsAdding(true)}>
+            onClick={() => setIsAddingEntry(true)}>
             Add new Task
           </Button>
         )}
