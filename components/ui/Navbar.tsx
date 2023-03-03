@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UIContext } from "@/context";
+import { UIContext } from "../../context";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
