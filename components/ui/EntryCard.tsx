@@ -12,7 +12,7 @@ interface Props {
   entry: Entry;
 }
 export const EntryCard: FC<Props> = ({ entry }) => {
-  const onDragStart = (event: DragEvent) => {
+  const onDragStart = (event: DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setData("text", entry._id);
   };
   const onDragEnd = () => {};

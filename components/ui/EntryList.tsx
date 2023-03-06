@@ -19,7 +19,6 @@ export const EntryList: FC<Props> = ({ status }) => {
   };
   const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
     const id = event.dataTransfer.getData("text");
-    console.log({ id });
   };
 
   return (
