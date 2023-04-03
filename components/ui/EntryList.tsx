@@ -1,14 +1,15 @@
 import { DragEvent, FC, useContext, useMemo } from "react";
 import { EntryStatus } from "@/interfaces";
-import { EntriesContext } from "@/context/entries";
 import { List, Paper } from "@mui/material";
 import { EntryCard } from "./EntryCard";
-
+import { UIContext, EntriesContext } from "../../context/";
+import styles from "./Entry.module.css";
 interface Props {
   status: EntryStatus;
 }
 export const EntryList: FC<Props> = ({ status }) => {
   const { entries } = useContext(EntriesContext);
+  const { isDragging } = useContext(UIContext);
   const entriesByStatus = useMemo(
     () => entries.filter((entry) => entry.status === status),
     [entries]
@@ -18,10 +19,8 @@ export const EntryList: FC<Props> = ({ status }) => {
     event.preventDefault();
   };
   const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
     const id = event.dataTransfer.getData("text");
     console.log(id);
-    console.log(event);
   };
 
   return (
@@ -29,6 +28,7 @@ export const EntryList: FC<Props> = ({ status }) => {
       onDrop={onDropEntry}
       onDragOver={allowDrop}
       style={{ minHeight: "100vh" }}
+      className={isDragging ? styles.dragging : ""}
     >
       <Paper
         sx={{
@@ -38,7 +38,9 @@ export const EntryList: FC<Props> = ({ status }) => {
           padding: "1px 5px",
         }}
       >
-        <List sx={{ opacity: 1 }}>
+        <List
+          sx={{ opacity: isDragging ? 0.2 : 1, transition: "all ease .3s" }}
+        >
           {entriesByStatus.map((entry, index) => (
             <EntryCard key={index} entry={entry} />
           ))}
