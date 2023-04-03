@@ -18,18 +18,26 @@ export const EntryList: FC<Props> = ({ status }) => {
     event.preventDefault();
   };
   const onDropEntry = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
     const id = event.dataTransfer.getData("text");
+    console.log(id);
+    console.log(event);
   };
 
   return (
-    <div onDrop={onDropEntry} onDragOver={allowDrop}>
+    <div
+      onDrop={onDropEntry}
+      onDragOver={allowDrop}
+      style={{ minHeight: "100vh" }}
+    >
       <Paper
         sx={{
           height: "calc(100vh-250px)",
           overflow: "auto",
           backgroundColor: "transparent",
           padding: "1px 5px",
-        }}>
+        }}
+      >
         <List sx={{ opacity: 1 }}>
           {entriesByStatus.map((entry, index) => (
             <EntryCard key={index} entry={entry} />

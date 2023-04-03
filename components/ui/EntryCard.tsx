@@ -13,16 +13,20 @@ interface Props {
 }
 export const EntryCard: FC<Props> = ({ entry }) => {
   const onDragStart = (event: DragEvent<HTMLDivElement>) => {
+    console.log(event);
     event.dataTransfer.setData("text", entry._id);
   };
-  const onDragEnd = () => {};
+  const onDragEnd = () => {
+    console.log();
+  };
 
   return (
     <Card
-      sx={{ marginBottom: 1 }}
-      draggable
+      sx={{ marginBottom: 1, position: "relative", zIndex: 999 }}
+      draggable={true}
       onDragStart={onDragStart}
-      onDragEnd={onDragEnd}>
+      onDragEnd={onDragEnd}
+    >
       <CardActionArea>
         <CardContent>
           <Typography sx={{ whiteSpace: "pre-line" }}>
@@ -30,7 +34,8 @@ export const EntryCard: FC<Props> = ({ entry }) => {
           </Typography>
         </CardContent>
         <CardActions
-          sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}>
+          sx={{ display: "flex", justifyContent: "end", paddingRight: 2 }}
+        >
           <Typography variant="body2">Hace 30 minutos</Typography>
         </CardActions>
       </CardActionArea>
