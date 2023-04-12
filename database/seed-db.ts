@@ -1,12 +1,12 @@
 interface SeedData {
-  entries: SeedEntry;
+  entries: SeedEntry[];
 }
 interface SeedEntry {
   description: string;
   status: string;
   createdAt: number;
 }
-export const seedData = {
+export const seedData: SeedData = {
   entries: [
     {
       description:
