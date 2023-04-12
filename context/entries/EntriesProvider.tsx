@@ -6,29 +6,7 @@ export interface EntriesState {
   entries: Entry[];
 }
 export const Entries_INITIAL_STATE: EntriesState = {
-  entries: [
-    {
-      _id: uuidv4(),
-      description:
-        "Pendientes: Proident adipisicing magna eiusmod et cupidatat.",
-      status: "pending",
-      createdAt: Date.now(),
-    },
-    {
-      _id: uuidv4(),
-      description:
-        "En progreso: Proident adipisicing magna eiusmod et cupidatat.",
-      status: "in-progress",
-      createdAt: Date.now(),
-    },
-    {
-      _id: uuidv4(),
-      description:
-        "Completadas: Proident adipisicing magna eiusmod et cupidatat.",
-      status: "finished",
-      createdAt: Date.now(),
-    },
-  ],
+  entries: [],
 };
 interface Props {
   children: React.ReactNode;
