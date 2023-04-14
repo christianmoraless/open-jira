@@ -8,6 +8,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   switch (req.method) {
     case "GET":
       return getEntries(res);
@@ -20,15 +21,10 @@ export default function handler(
 }
 
 const getEntries = async (res: NextApiResponse<Data>) => {
-  try {
-    await db.connect();
-    const entries = await Entry.find().sort({ createdAt: "ascending" });
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(200).json(entries);
-    await db.disconnect();
-  } catch (error) {
-    console.log(error);
-  }
+  await db.connect();
+  const entries = await Entry.find().sort({ createdAt: "ascending" });
+  await db.disconnect();
+  return res.status(200).json(entries);
 };
 
 const postEntry = async (res: NextApiResponse, req: NextApiRequest) => {
@@ -40,7 +36,6 @@ const postEntry = async (res: NextApiResponse, req: NextApiRequest) => {
 
   try {
     await db.connect();
-    res.setHeader("Access-Control-Allow-Origin", "*");
     await newEntry.save();
     await db.disconnect();
     return res.status(201).json(newEntry);
