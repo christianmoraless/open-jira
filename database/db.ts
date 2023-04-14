@@ -15,7 +15,12 @@ export const connect = async () => {
     }
     await mongoose.disconnect();
   }
-  await mongoose.connect(process.env.MONGO_URL || "");
+  await mongoose.connect(process.env.MONGO_URL || "", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  });
   console.log("Conectado a ", process.env.MONGO_URL);
   mongooConnection.isConnected = 1;
 };

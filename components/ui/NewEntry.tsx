@@ -13,12 +13,14 @@ export const NewEntry = () => {
   const { isAddingEntry, setIsAddingEntry } = useContext(UIContext);
   const [inputValue, setInputValue] = useState("");
   const [touched, setTouched] = useState(false);
+
   const onTextFieldChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const onSave = () => {
     if (inputValue.length === 0) return;
+
     addNewEntry(inputValue);
     setInputValue("");
     setIsAddingEntry(false);
@@ -50,7 +52,8 @@ export const NewEntry = () => {
                 variant="outlined"
                 color="secondary"
                 endIcon={<SaveIcon />}
-                onClick={onSave}>
+                onClick={onSave}
+              >
                 Save
               </Button>
             </Box>
@@ -60,7 +63,8 @@ export const NewEntry = () => {
             startIcon={<AddCircleOutlineOutlinedIcon />}
             fullWidth
             variant="outlined"
-            onClick={() => setIsAddingEntry(true)}>
+            onClick={() => setIsAddingEntry(true)}
+          >
             Add new Task
           </Button>
         )}
